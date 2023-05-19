@@ -1,0 +1,238 @@
+<html>
+	<head>
+			
+		<title>Heart Disease Test</title>
+		<style>
+			:root {
+				--primary-color: #007bff;
+				--secondary-color: #6c757d;
+				--accent-color: blue;
+			}
+			.container{
+				margin-top: 50px;
+			}
+			.legendtitle{
+				font-size: 30;
+			}
+			
+			/* Apply color scheme */
+			body {
+				background-color: #f8f9fa;
+			}
+			
+			.navbar {
+				text-align: center;
+				color: white;
+				background-color: black;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				font-size: 40;
+			}
+			
+			/* Add background and border to the card */
+			.cardbody {
+				background-color: #fff;
+				border-radius: 10px;
+				padding: 20px;
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+				
+			}
+			
+			/* Style the "Result" button */
+			.btn-primary {
+				background-color: var(--accent-color);
+				border-color: var(--accent-color);
+				color: #fff;
+				padding: 14px 28px;
+				font-size: 18px;
+				transition: background-color 0.3s ease;
+			}
+			.btn-primary{
+				border-radius: 5px;
+				width: 500;
+				display: block;
+				margin: 0 auto;
+			}
+			#result {
+				text-align: center;
+				margin-top: 20px;
+			}
+			
+			.btn-primary:hover {
+				background-color: #0275c1;
+				border-color: transparent;
+			}
+			
+			/* Add a subtle animation to the "Result" button */
+			.btn-primary:active {
+				transform: scale(0.98);
+			}
+			
+			/* Apply styling to form labels */
+			label {
+				font-weight: bold;
+				color: var(--secondary-color);
+			}
+			
+			/* Apply styling to input fields */
+			input[type="number"],
+			input[type="text"],
+			select {
+				background-color: #f8f9fa;
+				border: 1px solid #ced4da;
+				border-radius: 4px;
+				padding: 10px;
+				font-size: 16px;
+				width: 100%;
+				transition: border-color 0.3s ease;
+			}
+			
+			input[type="number"]:focus,
+			input[type="text"]:focus,
+			select:focus {
+				border-color: var(--primary-color);
+				outline: none;
+			}
+			
+			/* Add some margin between form groups */
+			.form-group {
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<!-- Navbar-->
+		<nav class="navbar">
+			<span>Heart Disease Test</span>
+		</nav>
+		<div class="container">
+			<br>
+			<!--Form-->
+			<form action = "{{url_for('predict')}}" method ="POST" >
+				<fieldset>
+				<legend class="legendtitle">Heart Disease Test Form</legend><br>
+				  <div class="cardbody" >
+					  <div class="form-group  row">
+						<div class="col-sm-3">
+							<label for="age">Age</label>
+							<input type="number" class="form-control" id="age" name="age" required>
+						</div>
+						<div class="col-sm-3">
+							<label for="sex">Sex</label>
+							<select class="form-control" id="sex"  name="sex" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">Male</option>
+							  <option value = "1">Female</option>
+							</select>
+					   </div>
+					  </div>
+					  <br>
+					  <div class="form-group  row">
+						  <div class="col-sm">
+							<label for="cp">Chest Pain Type</label>
+							<select class="form-control" id="cp" name = "cp" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">Typical Angina</option>
+							  <option value = "1">Atypical Angina</option>
+							  <option value = "2">Non-anginal Pain</option>
+							  <option value = "3">Asymptomatic</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="trestbps">Resting Blood Pressure in mm Hg</label>
+							<input type="number" class="form-control" id="trestbps" name="trestbps"  required>
+						  </div>
+						  <div class="col-sm">
+							<label for="chol">Serum Cholestoral in mg/dl</label>
+							<input type="number" class="form-control" id="chol" name="chol" required>
+						  </div>
+						  <div class="col-sm">
+							<label for="fbs">Fasting Blood Sugar > 120 mg/dl</label>
+							<select class="form-control" id="fbs" name="fbs" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">False</option>
+							  <option value = "1">True</option>
+							</select>
+						</div>
+					  </div>
+					  
+					  <br>
+					  <div class="form-group row">
+							<div class="col-sm">
+								<label for="restecg">Resting ECG Results </label>
+								<select class="form-control" id="restecg" name="restecg" required>
+								  <option disabled selected value> -- Select an Option -- </option>
+								  <option value = "0">Normal</option>
+								  <option value = "1">Having ST-T wave abnormality  </option>
+								  <option value = "2"> Probable or definite left ventricular hypertrophy  </option>
+								</select>
+							  </div>
+							  <div class="col-sm">
+								<label for="thalach">Maximum Heart Rate</label>
+								<input type="number" class="form-control" id="thalach" name="thalach" required>
+							  </div>
+							  <div class="col-sm">
+								<label for="exang">ST Depression Induced</label>
+								<input type="number" step="any" class="form-control" id="exang" name="exang" required>
+							  </div>
+							  <div class="col-sm">
+								<label for="exang">Exercise Induced Angina </label>
+								<select class="form-control" id="oldpeak" name="oldpeak" required>
+								  <option disabled selected value> -- Select an Option -- </option>
+								  <option value = "0">No</option>
+								  <option value = "1">Yes</option>
+								</select>
+							  </div>
+						  </div>
+						  <br>
+						  <div class="form-group  row">
+						  <div class="col-sm">
+							<label for="slope">Slope of the Peak Exercise ST Segment </label>
+							<select class="form-control" id="slope" name="slope" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">Upsloping</option>
+							  <option value = "1">Flat</option>
+							  <option value = "2">Downsloping</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="ca">Number of Vessels Colored by Flourosopy</label>
+							<select class="form-control" id="ca" name = "ca" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">0</option>
+							  <option value = "1">1</option>
+							  <option value = "2">2</option>
+							  <option value = "3">3</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="thal">Thalassemia</label>
+							<select class="form-control" id="thal" name = "thal" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "3">Normal</option>
+							  <option value = "6">Fixed defect</option>
+							  <option value = "7">Reversable defect</option>
+							</select>
+						  </div>
+					  </div>
+					  <br>
+					  <div class="form-group">
+						<input class="btn btn-primary" type="submit" value="Result">
+					  </div>
+					  
+					  <!--Prediction Result-->
+					  <div id ="result">
+							<strong style="color:red">{{result}}</strong>
+					 </div>
+				     </div>
+			 </fieldset>
+			</form>
+			
+		</div>
+		
+	</body>
+</html>
+
